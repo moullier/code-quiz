@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript Quiz</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="timer row">
+            <div class="col-12" id="timerDisplay">
+                Timer: 0 seconds
+            </div>
+            <br><br><br>
+        </div>
+        <div class="row" >
+            <div class="col-12 col-md-6 offset-md-3" id="instructions">
+                <h2 id="quiztitle">Coding Quiz</h2>
+                <p id="quizrules">Try to answer the following code related questions in the time limit.  Answering questions incorrectly will result in a time penalty.</p>
+            </div>
+        </div>
+        <div class="row" id="button-container">
+            <div class="col-12">
+                <button type="button" class="btn btn-primary" id="startButton" onclick="startQuiz()">Start Quiz</button>
+
+            </div>
+        </div>
+        <div class="row justify-content-center" id="quiz-answers">
+            <div class="col-12 col-md-3 justify-content-center" id="answer1div">
+                <button type="button" class="btn btn-primary" id="answer1" onclick="submitAnswer(1)"></button>
+            </div>
+            <div class="col-12 col-md-3 justify-content-center" id="answer2div">
+                <button type="button" class="btn btn-primary" id="answer2" onclick="submitAnswer(2)"></button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-12 col-md-3 justify-content-center" id="answer3div">
+                <button type="button" class="btn btn-primary" id="answer3" onclick="submitAnswer(3)"></button>
+            </div>
+            <div class="col-12 col-md-3 justify-content-center" id="answer4div">
+                <button type="button" class="btn btn-primary" id="answer4" onclick="submitAnswer(4)"></button>
+            </div>
+        </div>
+        <div class="row" id="quiz-result">
+            <div class="col-12 col-md-2 offset-md-5" id="quiz-result-text">
+            </div>
+        </div>
+        <br>
+        <div class="row" id="store-initials">
+            <div class="col-12 col-md-6 offset-md-4" id="store-initials-text">
+                Enter Initials: <input type="text" name="initials" id="initials">
+                <br>
+                <button type="button" class="btn btn-primary" id="submit-initials-button" onclick="submitInitials()">Submit</button>
+                <button type="button" class="btn btn-primary" id="clear-list-button" onclick="clearInitials()">Clear</button>
+                <button type="button" class="btn btn-primary" id="new-game-button" onclick="startQuiz()">Start Again</button>
+            </div>
+        </div>
+        <div class="row" id="high-scores">
+            <div class="col-12 col-md-6 offset-md-4" id="high-score-table">
+                <table>
+                    <tr>
+                        <th>Initials</th>
+                        <th>Score</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+    <script src="./script.js"></script>
+    <script src="./questions.js"></script>
+</body>
+</html>
