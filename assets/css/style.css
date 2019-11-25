@@ -1,3 +1,7 @@
+body {
+    background-image: url("../images/blue-snow.png");
+}
+
 #timerDisplay {
     text-align: right;
 }
@@ -16,13 +20,32 @@
 }
 
  #quiz-result-text {
-    background-color: chartreuse;
+    /* background-color: chartreuse; */
     text-align: center;
 }
 
 td {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+#store-initials-text {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+#after-game-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#answer1div, #answer2div, #answer3div, #answer4div {
+    display: flex;
+    justify-content: center;
+}
+
+#submit-initials-button, #clear-list-button, #new-game-button {
+    margin: 10px;
 }
 /*
 #answer2 {

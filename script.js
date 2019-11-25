@@ -4,21 +4,25 @@ var timer = document.querySelector("#timerDisplay");
 var countdownTimer = 76;
 var quizAnswersNode = document.getElementById("quiz-answers");
 var storeInitialsNode = document.getElementById("store-initials");
+var buttonsNode = document.getElementById("buttons-row");
 var questionNumber = 0;
 var gameIsFinished = false;
 var score = 0;
 var scoreArray = [];
-var scoreTable = document.querySelector("table");
+
 
 // hide quiz answers and fields to store initials to start
 quizAnswersNode.style.display = "none";
 storeInitialsNode.style.display = "none";
+buttonsNode.style.display = "none";
 
 // function called when user clicks on Start Quiz button
 function startQuiz() {
 
-    // reset the questionNumber to 0
+    // reset the questionNumber to 0, timer to 76
     questionNumber = 0;
+    countdownTimer = 76;    
+
     // Clear the startup screen and display the first quiz question
     displayFirstQuestion();
     
@@ -43,6 +47,11 @@ function startQuiz() {
 }
 
 function displayFirstQuestion() {
+    
+    // hide storeInitialsNode and buttonsNode
+    storeInitialsNode.style.display = "none";
+    buttonsNode.style.display = "none";
+
     // Stop displaying quiz title, rules, and start button
     var quizTitleNode = document.getElementById("quiztitle");
     var quizRulesNode = document.getElementById("quizrules");
@@ -50,6 +59,7 @@ function displayFirstQuestion() {
     quizTitleNode.textContent = "";
     quizRulesNode.textContent = "";
     document.getElementById("startButton").style.display = "none";
+    document.getElementById("high-scores").style.display = "none";
 
     // display the first quiz question
 
@@ -91,9 +101,21 @@ function submitAnswer(ans) {
     // if there are more questions, display next question, otherwise game is over, calculate score
     if(questionNumber < questions.length)
         displayQuizQuestion(questionNumber);
-    else
-        gameOver(countdownTimer);
+    else {
+        // run off 3 seconds, then call game over function
 
+        var countdown = 3;
+
+        var timerInt = setInterval(function() {
+            countdown--;
+    
+            if(countdown <= 0) {
+                clearInterval(timerInt);
+            }
+        }, 1000);
+
+        gameOver(countdownTimer);
+    }
 }
 
 // passes in the number corresponding to the user's answer choice, checks against answer for current question
@@ -102,10 +124,6 @@ function checkAnswer(ans) {
     var userAnswer = questions[questionNumber].choices[ans-1];
     // get the correct answer from the question
     var correctAnswer = questions[questionNumber].answer;
-
-
-    // console.log("user's answer = " + questions[questionNumber].choices[ans-1]);
-    // console.log("answer = " + questions[questionNumber].answer);
 
     // if answer is correct, display correct, else wrong
     // if answer is wrong, take 15 second time penalty off timer
@@ -127,6 +145,9 @@ function gameOver(endingScore) {
     quizAnswersNode.style.display = "none";
     quizRulesNode.textContent = "";
 
+    // show the high score list
+    document.getElementById("high-scores").style.display = "flex";
+
     // sets the timer to 0 because game is over
     countdownTimer = 0;
     
@@ -143,8 +164,12 @@ function gameOver(endingScore) {
     // display the final score
     quizTitleNode.textContent = "Game over! Score: " + score;
 
-    // display the storeInitials fields
+    // Reset submit-initials button
+    document.getElementById("submit-initials-button").disabled = false;
+
+    // display the storeInitials fields and buttons
     storeInitialsNode.style.display = "flex";
+    buttonsNode.style.display = "flex";
 }
 
 // displays correct or wrong text for 3 seconds, then clears it
@@ -154,7 +179,7 @@ function displayResult(str) {
 
     resultText.textContent = str;
 
-
+    // displays string for resultTimer seconds, then clears
     var timerInterval = setInterval(function() {
         resultTimer--;
         
@@ -167,57 +192,126 @@ function displayResult(str) {
 }
 
 // function to store the user's initals and score in local storage
-function submitInitials() {
+function submitInitials2() {
     var initialsInput = document.getElementById("initials");
     var userInitials = initialsInput.value;
-    var initialScorePair = [userInitials, score];
-    
-    tempArray = localStorage.getItem("scoreArray");
+    var initialScorePair = {
+        initials: userInitials, 
+        userscore: score};
+    scoreArray = [];
+    var initialArray 
+
+    tempArray = localStorage.getItem("scores");
     console.log("tempArray = " + tempArray)
+
+
+    // if there is nothing in local storage, set scoreArray to an empty array
+    // otherwise ????????????????????
+    if(tempArray == null){
+        tempArray = [];
+    } 
+
+    console.log("tempArray.length = " + tempArray.length);
+//   var tempArray2 = JSON.parse(tempArray);
+ //   console.log("tempArray2.length = " + tempArray2.length);
+
+    scoreArray = scoreArray.concat(tempArray);
+
+
 
     console.log("scoreArray = " + scoreArray);
     console.log("typeof scoreArray " + typeof(scoreArray))
-    scoreArray.push(initialScorePair);
+    scoreArray.push(JSON.stringify(initialScorePair));
+    console.log("scoreArray after push = " + scoreArray);
+    for(var x = 0; x < scoreArray.length; x++)
+        console.log("scoreArray[" + x+ "] = " + scoreArray[x]);
     initialsInput.value = "";
-    console.log("scoreArray = " + scoreArray);
-    localStorage.setItem("scoreArray", scoreArray);
+    // console.log("tempArray = " + tempArray);
+    localStorage.setItem("scores", JSON.stringify(scoreArray));
 
     displayHighScores();
 }
 
-function displayHighScores() {
+function submitInitials() {
+    var initialsInput = document.getElementById("initials");
+    var userInitials = initialsInput.value;
+    initialsInput.value = "";
+    var initialArray = [];
+    var scores = [];
+    document.getElementById("submit-initials-button").disabled = true;
 
-    generateTable();
+
+    initialArray = JSON.parse(localStorage.getItem("inits") || "[]");
+    scores = JSON.parse(localStorage.getItem("scores") || "[]");
+
+    console.log("scores = " + scores);
+    console.log("initialArray = " + initialArray);
+
+    scores.push(score);
+    initialArray.push(userInitials);
+
+    localStorage.setItem("inits", JSON.stringify(initialArray));
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+    generateTable(initialArray, scores);
+
 }
 
-// function generateTableHead(table) {
+function displayHighScores() {
 
-//     var heading = document.createElement("th");
-//     var hrow = document.createElement("tr");
-//     var init = document.createElement("td");
-//     var tablescore = document.createElement("td");
-//     init.textContent = "Initials";
-//     tablescore.textContent = "Score";
+    initialArray = JSON.parse(localStorage.getItem("inits") || "[]");
+    scores = JSON.parse(localStorage.getItem("scores") || "[]");
 
-//     hrow.appendChild(init);
-//     hrow.appendChild(tablescore);
-//     heading.appendChild(hrow);
-//     table.appendChild(heading);
-// }
+    generateTable(initialArray, scores);
+}
 
-function generateTable() {
+function generateTable(initA, scoreA) {
 
-    var table = document.getElementById("high-score-table");
-    for(var i = 0; i < scoreArray.length; i+=2) {
-        console.log("i = " + i);
-        var newRow = document.createElement("tr");
-        var newInitials = document.createElement("td");
-        var newScore = document.createElement("td");
-        newInitials.textContent = scoreArray[i][0];
-        newScore.textContent = scoreArray[i][1];
-        newRow.appendChild(newInitials);
-        newRow.appendChild(newScore);
-        table.appendChild(newRow);
+    var list = document.getElementById("high-score-list");
+    document.getElementById("high-scores").style.display = "flex";
+
+    document.getElementById("high-score-list").innerHTML = "";
+    var newRow = document.createElement("div")
+    newRow.setAttribute("class", "row");
+    var newDiv = document.createElement("div");
+    newDiv.setAttribute("class", "col-2");
+    var newDiv2 = document.createElement("div");
+    newDiv2.setAttribute("class", "col-2");
+    newDiv.textContent = "Initials";
+    newDiv2.textContent = "Score";
+    newRow.appendChild(newDiv);
+    newRow.appendChild(newDiv2);
+    list.appendChild(newRow);
+
+    for(var i = 0; i < scoreA.length; i++) {
+
+        var storedInitials = initA[i];
+        var storedScore = scoreA[i];
+        console.log("storedInitials = " + storedInitials);
+        console.log("storedScore = " + storedScore);
+
+        newRow = document.createElement("div")
+        newRow.setAttribute("class", "row");
+
+        newDiv = document.createElement("div");
+        newDiv.setAttribute("class", "col-2");
+        newDiv.textContent = storedInitials;
+
+        newDiv2 = document.createElement("div");
+        newDiv2.setAttribute("class", "col-2");
+        newDiv2.textContent = storedScore;
+
+        newRow.appendChild(newDiv);
+        newRow.appendChild(newDiv2);
+        list.appendChild(newRow);
+    
     }
+}
 
+// Clear out the stored score list from localStorage
+function clearInitials() {
+
+    localStorage.removeItem("inits");
+    localStorage.removeItem("scores");
+    generateTable([], []);
 }
