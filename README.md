@@ -1,4 +1,4 @@
-# Javascript Code Activity
+# Javascript Code Quiz
 
 ## Description
 
@@ -18,7 +18,7 @@ This resource showed how to disable a button: https://www.w3schools.com/jsref/pr
 
 ## Resources
 
-Background pattern from Toptal Subtle Patterns (https://www.toptal.com/designers/subtlepatterns/)
+Background pattern from Toptal Subtle Patterns (https://www.toptal.com/designers/subtlepatterns/), used under the terms of their license.
 
 Correct.mp3 was created by LittleRainySeasons, downloaded from freesound.org and licensed under the Creative Commons 0 License.
 

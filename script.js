@@ -23,7 +23,8 @@ function startQuiz() {
 
     // reset the questionNumber to 0, timer to 76
     questionNumber = 0;
-    countdownTimer = 76;    
+    countdownTimer = 76;
+    gameIsFinished = false;    
 
     // Clear the startup screen and display the first quiz question
     displayFirstQuestion();
