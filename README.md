@@ -2,15 +2,27 @@
 
 ## Description
 
-This project is a quiz about Javascript.  The user answers five multiple choice questions, and get assigned a score depending on how many questions they get right, and how much time they have remaining at the end of the quiz.  Each wrong answer incurs a 15 second penalty.
+This project is a quiz about Javascript.  The user answers five multiple choice questions, and get assigned a score depending on how many questions they get right, and how much time they have remaining at the end of the quiz.  Each wrong answer incurs a 15 second penalty.  After completing the quiz, the user can add his initials to a score table, which is stored.
+
+This project allowed me to practice working with Javascript logic, including timers and storing/retrieving data in localStorage.  I also improved my skills in DOM manipulation, as when I build up the high score list as a series of divs in Javascript.  Additionally, I learned to play audio files in Javascript.  The layout is based in Bootstrap, using the grid layout.  I used Bootstrap buttons and alerts as pre-defined components, and additional manual CSS to fine-tune the look of the page.
 
 ## Credits
 
-https://stackoverflow.com/questions/43762363/how-to-store-an-array-of-objects-in-local-storage
+This question helped me use JSON.parse and JSON.stringify to store the high score lists: https://stackoverflow.com/questions/43762363/how-to-store-an-array-of-objects-in-local-storage
+
+This article provided info on how to add and remove classes from an object in the DOM: https://www.digitalocean.com/community/tutorials/how-to-modify-attributes-classes-and-styles-in-the-dom
+
+This resource helped me center a button within a div: https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div
+
+This resource showed how to disable a button: https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
+
+## Resources
 
 Background pattern from Toptal Subtle Patterns (https://www.toptal.com/designers/subtlepatterns/)
 
-https://www.digitalocean.com/community/tutorials/how-to-modify-attributes-classes-and-styles-in-the-dom
+Correct.mp3 was created by LittleRainySeasons, downloaded from freesound.org and licensed under the Creative Commons 0 License.
+
+Failfare.mp3 was created by Wagna, downloaded from freesound.org and licensed under the Creative Commons 0 License.
 
 ## License
 

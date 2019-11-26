@@ -56,8 +56,8 @@
         </div>
         <br>
         <div class="row" id="store-initials">
-            <div class="col-12 col-sm-6 offset-sm-4" id="store-initials-text">
-                Enter Initials: <input type="text" name="initials" id="initials">
+            <div class="col-12" id="store-initials-text">
+                Enter Initials (Max 3): <input type="text" name="initials" id="initials">
             </div>
         </div>
         <div class="row" id="buttons-row">
@@ -68,13 +68,19 @@
             </div>
         </div>
         <div class="row" id="high-scores">
-            <div class="col-12 col-md-6 offset-md-4" id="high-score-list">
+            <div class="col-12" id="high-score-list">
             </div>
         </div>
 
     </div>
 
+    <audio id="successAudio">
+            <source src="./assets/music/correct.mp3" type="audio/mpeg">
+    </audio>
 
+    <audio id="failureAudio">
+            <source src="./assets/music/failfare.mp3" type="audio/mpeg">
+    </audio>    
     
     <script src="./script.js"></script>
     <script src="./questions.js"></script>

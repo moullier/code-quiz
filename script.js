@@ -141,10 +141,14 @@ function displayResult(str) {
     if(str == "Wrong!") {
         resultText.removeAttribute("class");
         resultText.setAttribute("class", "alert alert-danger text-center");
+
+        var x = document.getElementById("failureAudio");
+        x.play(); 
     } else {
         resultText.removeAttribute("class");
         resultText.setAttribute("class", "alert alert-success text-center");
-
+        var x = document.getElementById("successAudio");
+        x.play(); 
     }
     newP.textContent = str;
 
@@ -204,6 +208,7 @@ function gameOver(endingScore) {
 function submitInitials() {
     var initialsInput = document.getElementById("initials");
     var userInitials = initialsInput.value;
+    userInitials = userInitials.substring(0, 3);
     initialsInput.value = "";
     var initialArray = [];
     var scores = [];
@@ -243,7 +248,7 @@ function generateTable(initA, scoreA) {
     var newRow = document.createElement("div")
     newRow.setAttribute("class", "row");
     var newDiv = document.createElement("div");
-    newDiv.setAttribute("class", "col-2");
+    newDiv.setAttribute("class", "col-2 offset-4");
     var newDiv2 = document.createElement("div");
     newDiv2.setAttribute("class", "col-2");
     newDiv.textContent = "Initials";
@@ -263,7 +268,7 @@ function generateTable(initA, scoreA) {
         newRow.setAttribute("class", "row");
 
         newDiv = document.createElement("div");
-        newDiv.setAttribute("class", "col-2");
+        newDiv.setAttribute("class", "col-2 offset-4");
         newDiv.textContent = storedInitials;
 
         newDiv2 = document.createElement("div");

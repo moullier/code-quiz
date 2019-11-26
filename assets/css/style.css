@@ -35,9 +35,15 @@ td {
 }
 
 #store-initials-text {
+    text-align: center;
     padding-bottom: 15px;
     padding-top: 15px;
 }
+
+#store-initials, #high-scores {
+    justify-content: center;
+}
+
 
 #after-game-buttons {
     display: flex;
