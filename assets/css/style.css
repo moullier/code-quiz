@@ -15,13 +15,18 @@ body {
 }
 
 #answer1div, #answer2div, #answer3div, #answer4div {
-
     padding: 10px;
 }
 
- #quiz-result-text {
-    /* background-color: chartreuse; */
+ #quiz-result, #high-score {
+    display: flex;
+    justify-content: center;
+}
+
+#quiz-result-text {
+    margin: auto;
     text-align: center;
+    justify-content: center;
 }
 
 td {
@@ -47,11 +52,3 @@ td {
 #submit-initials-button, #clear-list-button, #new-game-button {
     margin: 10px;
 }
-/*
-#answer2 {
-    background-color: darkblue;
-}
-
-#answer3 {
-    background-color: darkred;
-} */

@@ -9,12 +9,14 @@ var questionNumber = 0;
 var gameIsFinished = false;
 var score = 0;
 var scoreArray = [];
+var alertNode = document.getElementById("quiz-result-text");
 
 
 // hide quiz answers and fields to store initials to start
 quizAnswersNode.style.display = "none";
 storeInitialsNode.style.display = "none";
 buttonsNode.style.display = "none";
+alertNode.style.display = "none";
 
 // function called when user clicks on Start Quiz button
 function startQuiz() {
@@ -46,6 +48,8 @@ function startQuiz() {
     }, 1000);
 }
 
+
+// set up the screen and display the first quiz question
 function displayFirstQuestion() {
     
     // hide storeInitialsNode and buttonsNode
@@ -102,18 +106,6 @@ function submitAnswer(ans) {
     if(questionNumber < questions.length)
         displayQuizQuestion(questionNumber);
     else {
-        // run off 3 seconds, then call game over function
-
-        var countdown = 3;
-
-        var timerInt = setInterval(function() {
-            countdown--;
-    
-            if(countdown <= 0) {
-                clearInterval(timerInt);
-            }
-        }, 1000);
-
         gameOver(countdownTimer);
     }
 }
@@ -134,6 +126,40 @@ function checkAnswer(ans) {
         countdownTimer -= 15;
     }
 }
+
+// displays correct or wrong text for 3 seconds, then clears it
+function displayResult(str) {
+    var resultText = document.getElementById("quiz-result-text");
+    var resultTimer = 3;
+    var newP = document.createElement("p");
+    newP.setAttribute("class", "text-center");
+
+    resultText.innerHTML = "";
+    resultText.appendChild(newP);
+
+    resultText.style.display = "flex";
+    if(str == "Wrong!") {
+        resultText.removeAttribute("class");
+        resultText.setAttribute("class", "alert alert-danger text-center");
+    } else {
+        resultText.removeAttribute("class");
+        resultText.setAttribute("class", "alert alert-success text-center");
+
+    }
+    newP.textContent = str;
+
+    // displays string for resultTimer seconds, then clears
+    var timerInterval = setInterval(function() {
+        resultTimer--;
+        
+        if(resultTimer == 0) {
+            clearInterval(timerInterval);
+            resultText.style.display = "none";
+        }
+    
+      }, 1000);
+}
+
 
 // function that performs cleanup and displays the score (passed in as the timer if game
 // ends before time is up)
@@ -172,65 +198,8 @@ function gameOver(endingScore) {
     buttonsNode.style.display = "flex";
 }
 
-// displays correct or wrong text for 3 seconds, then clears it
-function displayResult(str) {
-    var resultText = document.getElementById("quiz-result-text");
-    var resultTimer = 3;
-
-    resultText.textContent = str;
-
-    // displays string for resultTimer seconds, then clears
-    var timerInterval = setInterval(function() {
-        resultTimer--;
-        
-        if(resultTimer == 0) {
-            clearInterval(timerInterval);
-            resultText.textContent = "";
-        }
-    
-      }, 1000);
-}
-
-// function to store the user's initals and score in local storage
-function submitInitials2() {
-    var initialsInput = document.getElementById("initials");
-    var userInitials = initialsInput.value;
-    var initialScorePair = {
-        initials: userInitials, 
-        userscore: score};
-    scoreArray = [];
-    var initialArray 
-
-    tempArray = localStorage.getItem("scores");
-    console.log("tempArray = " + tempArray)
 
 
-    // if there is nothing in local storage, set scoreArray to an empty array
-    // otherwise ????????????????????
-    if(tempArray == null){
-        tempArray = [];
-    } 
-
-    console.log("tempArray.length = " + tempArray.length);
-//   var tempArray2 = JSON.parse(tempArray);
- //   console.log("tempArray2.length = " + tempArray2.length);
-
-    scoreArray = scoreArray.concat(tempArray);
-
-
-
-    console.log("scoreArray = " + scoreArray);
-    console.log("typeof scoreArray " + typeof(scoreArray))
-    scoreArray.push(JSON.stringify(initialScorePair));
-    console.log("scoreArray after push = " + scoreArray);
-    for(var x = 0; x < scoreArray.length; x++)
-        console.log("scoreArray[" + x+ "] = " + scoreArray[x]);
-    initialsInput.value = "";
-    // console.log("tempArray = " + tempArray);
-    localStorage.setItem("scores", JSON.stringify(scoreArray));
-
-    displayHighScores();
-}
 
 function submitInitials() {
     var initialsInput = document.getElementById("initials");
