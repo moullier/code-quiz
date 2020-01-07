@@ -1,5 +1,7 @@
 # Javascript Code Quiz
 
+Hosted at: https://moullier.github.io/code-quiz/
+
 ## Description
 
 This project is a quiz about Javascript.  The user answers five multiple choice questions, and get assigned a score depending on how many questions they get right, and how much time they have remaining at the end of the quiz.  Each wrong answer incurs a 15 second penalty.  After completing the quiz, the user can add his initials to a score table, which is stored.
